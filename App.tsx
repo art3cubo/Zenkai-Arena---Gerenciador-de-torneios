@@ -224,7 +224,16 @@ const App: React.FC = () => {
   }, [players.length, tournament, enableGroups]);
 
   const addPlayer = () => {
-    if (!newPlayerName.trim()) return;
+    const nameToAdd = newPlayerName.trim();
+    if (!nameToAdd) return;
+    
+    // Check for duplicate names (case-insensitive)
+    const isDuplicate = players.some(p => p.name.toLowerCase() === nameToAdd.toLowerCase());
+    if (isDuplicate) {
+        alert("Já existe um jogador com este nome!");
+        return;
+    }
+
     if (players.length >= 30) {
         alert("Máximo de 30 jogadores atingido.");
         return;
@@ -251,7 +260,7 @@ const App: React.FC = () => {
 
     const newPlayer: Player = {
       id: generateId(),
-      name: newPlayerName,
+      name: nameToAdd,
       wins: 0,
       losses: 0,
       draws: 0,
