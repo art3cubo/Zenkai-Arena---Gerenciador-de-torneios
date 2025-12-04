@@ -726,8 +726,7 @@ const App: React.FC = () => {
   };
 
   const endTournament = () => {
-    // Removed window.confirm to avoid blocking issues in certain environments/previews
-    // and ensuring clean state reset
+    // Ensures a clean reset to the registration screen
     setTournament(null);
   };
 
