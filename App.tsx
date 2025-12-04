@@ -726,9 +726,9 @@ const App: React.FC = () => {
   };
 
   const endTournament = () => {
-    if (window.confirm("Deseja encerrar o torneio e voltar para a tela inicial?")) {
-        setTournament(null);
-    }
+    // Removed window.confirm to avoid blocking issues in certain environments/previews
+    // and ensuring clean state reset
+    setTournament(null);
   };
 
   const shareTournament = () => {
