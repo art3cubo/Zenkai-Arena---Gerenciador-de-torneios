@@ -480,37 +480,61 @@ const App: React.FC = () => {
 
       while (activePlayers.length > 0) {
           const p1 = activePlayers.shift()!;
-          let opponentIndex = -1;
+          let bestOpponentIndex = -1;
           
-          // STRICT PAIRING LOGIC
+          // REFINED PAIRING LOGIC
+          // Priority 1: Played fewest times against P1
+          // Priority 2: Closest Score
+          
+          let minRepeatCount = Infinity;
+          let minScoreDiff = Infinity;
+
           for (let i = 0; i < activePlayers.length; i++) {
-              if (!p1.opponents.includes(activePlayers[i].id)) {
-                  opponentIndex = i;
-                  break;
+              const p2 = activePlayers[i];
+              
+              // Calculate how many times they faced each other
+              const repeatCount = p1.opponents.filter(id => id === p2.id).length;
+              const scoreDiff = Math.abs(p1.tournamentPoints - p2.tournamentPoints);
+
+              // We want strictly the lowest repeat count.
+              // If tie in repeats, we want lowest score diff.
+              
+              if (repeatCount < minRepeatCount) {
+                  minRepeatCount = repeatCount;
+                  minScoreDiff = scoreDiff;
+                  bestOpponentIndex = i;
+              } else if (repeatCount === minRepeatCount) {
+                  if (scoreDiff < minScoreDiff) {
+                      minScoreDiff = scoreDiff;
+                      bestOpponentIndex = i;
+                  }
               }
           }
 
-          if (opponentIndex === -1) {
-               opponentIndex = 0; 
+          // Fallback should ideally not happen in loop, but if list not empty, bestOpponentIndex will be set
+          if (bestOpponentIndex === -1 && activePlayers.length > 0) {
+               bestOpponentIndex = 0; 
           }
 
-          const p2 = activePlayers[opponentIndex];
-          activePlayers.splice(opponentIndex, 1);
-
-          matchCount++;
-          newMatches.push({
-              id: `R${roundNumber}-${matchCount}-${generateId()}`,
-              round: roundNumber,
-              isElimination: false,
-              player1Id: p1.id,
-              player2Id: p2.id,
-              winnerId: null,
-              score1: 0,
-              score2: 0,
-              status: MatchStatus.PENDING,
-              nextMatchId: null,
-              isBye: false
-          });
+          if (bestOpponentIndex !== -1) {
+            const p2 = activePlayers[bestOpponentIndex];
+            activePlayers.splice(bestOpponentIndex, 1);
+  
+            matchCount++;
+            newMatches.push({
+                id: `R${roundNumber}-${matchCount}-${generateId()}`,
+                round: roundNumber,
+                isElimination: false,
+                player1Id: p1.id,
+                player2Id: p2.id,
+                winnerId: null,
+                score1: 0,
+                score2: 0,
+                status: MatchStatus.PENDING,
+                nextMatchId: null,
+                isBye: false
+            });
+          }
       }
       return newMatches;
   };
