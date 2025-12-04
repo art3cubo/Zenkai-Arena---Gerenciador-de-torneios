@@ -124,7 +124,8 @@ export const BracketView: React.FC<BracketViewProps> = ({ matches, players, curr
                                           </div>
                                       )}
                                   </div>
-                              )}})}
+                                  );
+                              })}
                           </div>
                       </div>
                   )
