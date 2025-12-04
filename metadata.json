@@ -1,0 +1,5 @@
+{
+  "name": "Arena de Cartas - Gestor de Torneios",
+  "description": "Um organizador de torneios completo para jogos de cartas personalizados, com juiz de IA e geração de chaves.",
+  "requestFramePermissions": []
+}
