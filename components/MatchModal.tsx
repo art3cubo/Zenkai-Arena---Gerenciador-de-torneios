@@ -8,7 +8,6 @@ import { getPlayerBadgeStyle } from '../App';
 interface MatchModalProps {
   match: Match;
   players: Player[];
-  gameContext: string;
   isOvertime: boolean;
   readOnly?: boolean; 
   timerStarted: boolean;
@@ -18,7 +17,7 @@ interface MatchModalProps {
 }
 
 export const MatchModal: React.FC<MatchModalProps> = ({ 
-    match, players, gameContext, isOvertime, readOnly = false, timerStarted, ignoreTimer, onClose, onUpdate 
+    match, players, isOvertime, readOnly = false, timerStarted, ignoreTimer, onClose, onUpdate 
 }) => {
   const [score1, setScore1] = useState(match.score1);
   const [score2, setScore2] = useState(match.score2);

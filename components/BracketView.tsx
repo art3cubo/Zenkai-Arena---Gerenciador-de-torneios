@@ -13,11 +13,6 @@ interface BracketViewProps {
 }
 
 export const BracketView: React.FC<BracketViewProps> = ({ matches, players, currentRound, phase, onMatchClick }) => {
-  const getPlayerName = (id: string | null) => {
-    if (!id) return 'A Definir';
-    return players.find(p => p.id === id)?.name || 'Desconhecido';
-  };
-
   const getPlayerInfo = (id: string | null) => players.find(p => p.id === id);
 
   const PlayerNameBadge: React.FC<{ playerId: string | null }> = ({ playerId }) => {
@@ -64,7 +59,6 @@ export const BracketView: React.FC<BracketViewProps> = ({ matches, players, curr
                           <div className="grid md:grid-cols-2 gap-4">
                               {roundMatches.map(match => {
                                   const p1 = players.find(p => p.id === match.player1Id);
-                                  const p2 = players.find(p => p.id === match.player2Id);
                                   const groupLabel = p1?.groupId ? `Gr ${p1.groupId}` : null;
 
                                   return (

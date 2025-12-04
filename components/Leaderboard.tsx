@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import { Player } from '../types';
-import { Trophy, Skull, Flame, Star, ShieldAlert, Camera, Grid, Crown, Zap } from 'lucide-react';
+import { Trophy, Skull, Flame, Star, ShieldAlert, Camera, Grid, Crown } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { getPlayerBadgeStyle } from '../App';
 

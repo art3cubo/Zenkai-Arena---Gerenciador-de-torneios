@@ -9,7 +9,7 @@ import { Leaderboard } from './components/Leaderboard';
 import { RoundTimer } from './components/RoundTimer';
 import { 
   Layout, ChevronRight, PlayCircle, Swords, 
-  Users, Dna, Menu, X, Play, Share2, Eye, EyeOff, SkipForward, ToggleLeft, ToggleRight, RefreshCcw, Settings, Grid, Trophy, Shuffle, LogOut
+  Users, Dna, Menu, X, Play, Share2, Eye, EyeOff, SkipForward, ToggleLeft, ToggleRight, RefreshCcw, Grid, Shuffle, LogOut
 } from 'lucide-react';
 
 // --- LOGIC HELPERS ---
@@ -1250,7 +1250,6 @@ const App: React.FC = () => {
             <MatchModal 
                 match={selectedMatch}
                 players={tournament.players}
-                gameContext={tournament.name}
                 isOvertime={isCurrentRoundOvertime && !selectedMatch.isBye && !selectedMatch.isElimination && !tournament.ignoreTimer}
                 readOnly={!isAdmin || (selectedMatch.isBye && !isAdmin)}
                 timerStarted={!!tournament.roundStartTime}
